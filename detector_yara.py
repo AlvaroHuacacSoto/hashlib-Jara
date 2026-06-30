@@ -8,7 +8,7 @@ logger.remove()
 logger.add(lambda _: None)
 from androguard.core.apk import APK
 
-DIR = "/home/alim/exposicion final"
+DIR = "/home/alim/exposicion final/APKs"
 ARCHIVOS = ["CairosOriginal.apk", "CairosVenom.apk", "payload.apk"]
 
 REGLAS_DEX = yara.compile(source="""

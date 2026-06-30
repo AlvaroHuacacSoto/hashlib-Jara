@@ -2,7 +2,7 @@ import hashlib
 import os
 import time
 
-DIR = "/home/alim/exposicion final"
+DIR = "/home/alim/exposicion final/APKs"
 ARCHIVOS = ["CairosOriginal.apk", "CairosVenom.apk"]
 
 
