@@ -1,0 +1,1277 @@
+% ============================================================
+% INFORME - FORMATO ISO 690
+% Librerías Python para Ciberseguridad Defensiva
+% hashlib, yara-python e impacket
+% ============================================================
+\documentclass[12pt,a4paper]{article}
+
+% --- Fuente: Liberation Serif (compatible Times New Roman) ---
+\usepackage{fontspec}
+\setmainfont{Liberation Serif}
+\setmonofont{Liberation Mono}[Scale=MatchLowercase]
+
+% --- Márgenes 2.5 cm ---
+\usepackage[margin=2.5cm]{geometry}
+
+% --- Interlineado 1.5 ---
+\usepackage{setspace}
+\onehalfspacing
+
+% --- Encabezados APA 7 ---
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{LIBRERÍAS PYTHON PARA CIBERSEGURIDAD}
+\fancyhead[R]{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\setlength{\headheight}{15pt}
+
+% --- Tablas APA 7 ---
+\usepackage{longtable,booktabs,array}
+\usepackage{caption}
+\captionsetup[table]{position=above,font={it,footnotesize},skip=4pt,
+  labelfont={bf,footnotesize},textfont={it,footnotesize}}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+
+% --- Listados de código ---
+\usepackage{xcolor}
+\definecolor{codebg}{RGB}{245,245,245}
+\definecolor{codeframe}{RGB}{180,180,180}
+\definecolor{codecomment}{RGB}{0,100,0}
+\definecolor{codestring}{RGB}{180,50,50}
+\definecolor{codekeyword}{RGB}{0,0,180}
+\usepackage{listings}
+\lstset{
+  basicstyle=\footnotesize\ttfamily,
+  backgroundcolor=\color{codebg},
+  frame=single,
+  framerule=0.4pt,
+  rulecolor=\color{codeframe},
+  breaklines=true,
+  breakatwhitespace=false,
+  tabsize=4,
+  showstringspaces=false,
+  aboveskip=10pt,
+  belowskip=10pt,
+  commentstyle=\color{codecomment}\itshape,
+  stringstyle=\color{codestring},
+  keywordstyle=\color{codekeyword}\bfseries,
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  numbersep=6pt,
+  xleftmargin=8pt,
+  framexleftmargin=8pt,
+}
+
+% --- Idioma español ---
+\usepackage[spanish,es-tabla]{babel}
+\addto\extrasspanish{\renewcommand{\tablename}{Tabla}}
+\usepackage[style=spanish]{csquotes}
+
+% --- Hipervínculos ---
+\usepackage[colorlinks=false,hidelinks]{hyperref}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % allow URL line breaks anywhere
+\usepackage{url}
+\urlstyle{same}
+
+% --- Paquetes adicionales ---
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\setlist{nosep}
+\usepackage{float}
+\usepackage{multirow}
+
+% --- Metadatos PDF ---
+\hypersetup{
+  pdftitle={Librerías Python para Ciberseguridad Defensiva},
+  pdfauthor={Arenas Llamocca, Condori, Cruz, Huacac \& Marocho},
+  pdfsubject={Informe - Ciberseguridad},
+  pdfkeywords={hashlib, yara-python, impacket, Python, APK, malware},
+}
+
+% --- Título (página de portada APA 7) ---
+\title{}
+\author{}
+\date{}
+
+\begin{document}
+
+% ============================================================
+% PORTADA (estilo APA 7)
+% ============================================================
+\begin{titlepage}
+\thispagestyle{empty}
+\begin{center}
+\vspace*{4cm}
+
+{\LARGE \textbf{Librerías Python para Ciberseguridad}}\\[8pt]
+{\LARGE \textbf{Defensiva: hashlib, yara-python}}\\[8pt]
+{\LARGE \textbf{e impacket}}\\[24pt]
+
+{\large Informe de Investigación}\\[12pt]
+{\large Curso: Computación Gráfica}\\[12pt]
+{\large Docente: Elvio Tintaya Zegarra}\\[36pt]
+
+{\large \textbf{Integrantes - Grupo 8}}\\[12pt]
+{\large Arenas Llamocca, Kyet Albert}\\[4pt]
+{\large Condori Nayhua, Eulalia}\\[4pt]
+{\large Cruz Acevedo, Joseph Abiud}\\[4pt]
+{\large Huacac Soto, Alvaro}\\[4pt]
+{\large Marocho Huaman, Alexander}\\[24pt]
+
+{\large Universidad Tecnológica de los Andes}\\[24pt]
+
+{\large 30 de junio de 2026}
+
+\end{center}
+\end{titlepage}
+
+% ============================================================
+% HOJA DE DATOS INSTITUCIONALES
+% ============================================================
+\thispagestyle{empty}
+\begin{center}
+\vspace*{2cm}
+
+{\Large \textbf{Datos del Trabajo de Investigación}}\\[24pt]
+
+\begin{table}[H]
+\centering
+\begin{tabular}{p{4cm}p{9cm}}
+\toprule
+\textbf{Dato} & \textbf{Información} \\
+\midrule
+Institución & Universidad Tecnológica de los Andes \\
+Curso & Computación Gráfica \\
+Docente & Elvio Tintaya Zegarra \\
+Grupo & 8 \\
+\multirow{5}{4cm}{Integrantes} & Arenas Llamocca, Kyet Albert \\
+ & Condori Nayhua, Eulalia \\
+ & Cruz Acevedo, Joseph Abiud \\
+ & Huacac Soto, Alvaro \\
+ & Marocho Huaman, Alexander \\
+Fecha de entrega & 30 de junio de 2026 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\vspace{12pt}
+\rule{10cm}{0.5pt}\\[12pt]
+{\footnotesize Repositorio: \url{https://github.com/AlvaroHuacacSoto/hashlib-Jara}}
+\end{center}
+\newpage
+
+% ============================================================
+% ÍNDICE
+% ============================================================
+\tableofcontents
+\newpage
+
+% ============================================================
+% INTRODUCCIÓN (Nivel 1 APA)
+% ============================================================
+\section{Introducción}
+
+Python se ha consolidado como uno de los lenguajes de programación más
+relevantes en el campo de la seguridad informática. Su sintaxis clara,
+la disponibilidad de miles de librerías especializadas y su extensa
+comunidad lo convierten en la herramienta de elección para analistas,
+investigadores y profesionales de la ciberseguridad defensiva en todo el
+mundo.
+
+El presente trabajo de investigación examina tres librerías
+fundamentales del ecosistema Python orientadas a la ciberseguridad:
+yara-python, hashlib e impacket. Estas herramientas permiten,
+respectivamente, detectar y clasificar malware mediante reglas de
+reconocimiento de patrones, verificar la integridad de archivos y
+mensajes mediante funciones hash criptográficas, y analizar protocolos
+de red como SMB, Kerberos y LDAP en entornos de laboratorio.
+
+Como componente práctico principal, se desarrolló un caso real de
+análisis forense sobre tres aplicaciones Android (APK): una original
+\texttt{CairosOriginal.apk}, otra infectada con un payload de Metasploit
+\texttt{CairosVenom.apk}, y un APK standalone \texttt{payload.apk}
+generado por MsfVenom. Se utilizó hashlib para calcular y comparar los
+hashes criptográficos de los archivos, evidenciando el efecto avalancha,
+y se implementó un detector basado en yara-python y Androguard capaz de
+identificar automáticamente el APK envenenado mediante el análisis de
+permisos, subpaquetes inyectados y firmas DEX. Todo el código fuente,
+los APK de prueba y este documento se encuentran disponibles en el
+repositorio del proyecto.
+
+\subsection{Propósito de la Guía}
+
+\begin{itemize}
+\item Orientar la elaboración del trabajo de investigación sobre librerías de
+  Python aplicadas a la ciberseguridad.
+\item Relacionar la investigación teórica con una práctica funcional
+  ejecutada con archivos APK reales.
+\item Promover el análisis de casos reales y la interpretación de resultados
+  en contextos de seguridad informática.
+\item Demostrar el valor defensivo de yara-python, hashlib e impacket en
+  entornos académicos y profesionales.
+\end{itemize}
+
+% ============================================================
+% CAPÍTULO I: PLANTEAMIENTO GENERAL
+% ============================================================
+\section{Planteamiento General del Tema}
+
+\subsection{Descripción del Tema}
+
+Las librerías de Python son componentes de software precompilados que
+ofrecen funcionalidades específicas listas para ser integradas en
+proyectos de programación. En el ámbito de la ciberseguridad, estas
+librerías reducen drásticamente el tiempo necesario para implementar
+mecanismos defensivos, ya que los analistas pueden enfocarse en la
+lógica de detección y respuesta en lugar de construir desde cero cada
+función criptográfica o de análisis de protocolos.
+
+El problema que este trabajo aborda es la necesidad de contar con
+herramientas de detección de amenazas, verificación de integridad y
+análisis de tráfico de red que sean accesibles, documentadas y
+aplicables en entornos educativos. Las tres librerías seleccionadas
+(yara-python, hashlib e impacket) responden directamente a esta
+necesidad: yara-python permite identificar malware mediante firmas de
+patrones; hashlib garantiza la integridad de archivos mediante funciones
+hash como SHA-256 y MD5; e impacket facilita el análisis y la simulación
+de protocolos de red como SMB y Kerberos en laboratorio.
+
+\subsection{Importancia del Uso de Librerías en Python}
+
+Las librerías permiten reutilizar código ampliamente probado por la
+comunidad, reducir errores humanos en implementaciones críticas de
+seguridad y acceder a algoritmos complejos con interfaces de
+programación simples. En ciberseguridad, donde un error de
+implementación puede comprometer la totalidad de un sistema, el uso de
+librerías estandarizadas resulta indispensable.
+
+Además, las librerías facilitan el trabajo colaborativo entre equipos de
+seguridad, la integración con plataformas de análisis de amenazas y la
+automatización de tareas repetitivas como el cálculo masivo de hashes o
+el escaneo de archivos con reglas YARA.
+
+\subsection{Área de Aplicación Seleccionada}
+
+Este trabajo se ubica en el área de ciberseguridad defensiva. Las
+librerías seleccionadas contribuyen de forma complementaria a la
+protección de sistemas: hashlib para integridad, yara-python para
+detección de código malicioso e impacket para análisis de protocolos de
+red en entornos controlados.
+
+\begin{table}[H]
+\centering
+\begin{threeparttable}
+\caption{\textit{Matriz de preguntas guía del proyecto}}
+\begin{tabular}{p{4.5cm}p{8cm}}
+\toprule
+\textbf{Pregunta guía} & \textbf{Respuesta desarrollada} \\
+\midrule
+¿Qué área eligieron? & Ciberseguridad defensiva: yara-python, hashlib e impacket. \\
+¿Por qué esa área? & La ciberseguridad es crítica en la formación tecnológica actual. Las amenazas digitales crecen y las organizaciones requieren profesionales en herramientas defensivas. \\
+¿Qué problema resuelve? & Detección de malware en APKs, verificación de integridad de software distribuido, y análisis de tráfico SMB/Kerberos en auditorías. \\
+¿Qué resultados esperan? & Hashes verificables, detección de patrones maliciosos en APKs reales, y documentación de herramientas de análisis de red. \\
+\bottomrule
+\end{tabular}
+\end{threeparttable}
+\end{table}
+
+% ============================================================
+% CAPÍTULO II: OBJETIVOS
+% ============================================================
+\section{Objetivos del Trabajo}
+
+\subsection{Objetivo General}
+
+Analizar el uso, características y aplicación práctica de las librerías
+yara-python, hashlib e impacket de Python orientadas a la ciberseguridad
+defensiva, mediante una investigación y el desarrollo de
+scripts funcionales de análisis forense de APKs.
+
+\subsection{Objetivos Específicos}
+
+\begin{enumerate}
+\item Identificar las principales características, funciones y métodos de
+  las librerías yara-python, hashlib e impacket.
+\item Explicar el funcionamiento básico, la instalación y la importación de
+  cada librería, junto con sus métodos principales.
+\item Comparar las tres librerías según su uso principal, nivel de
+  dificultad, ventajas, limitaciones y campo de aplicación real.
+\item Desarrollar scripts en Python utilizando las librerías para resolver
+  un problema real de ciberseguridad defensiva (detección de APKs
+  envenenados).
+\item Interpretar los resultados obtenidos y relacionarlos con un caso
+  práctico en contexto de seguridad informática.
+\end{enumerate}
+
+\subsection{Coherencia de Objetivos}
+
+\begin{table}[H]
+\centering
+\begin{threeparttable}
+\caption{\textit{Verificación de coherencia entre elementos del trabajo}}
+\begin{tabular}{p{4.5cm}p{8cm}}
+\toprule
+\textbf{Elemento} & \textbf{Verificación} \\
+\midrule
+Título & Menciona las tres librerías de Python en ciberseguridad. \\
+Objetivo general & Coincide con la finalidad: análisis e implementación práctica. \\
+Objetivos específicos & Organizan el desarrollo de lo teórico a lo práctico. \\
+Parte práctica & Evidencia el cumplimiento mediante código ejecutado sobre APKs reales. \\
+\bottomrule
+\end{tabular}
+\end{threeparttable}
+\end{table}
+
+% ============================================================
+% CAPÍTULO III: MARCO TEÓRICO
+% ============================================================
+\section{Marco Teórico}
+
+\subsection{Concepto de Python}
+
+Python es un lenguaje de programación de alto nivel, interpretado, de
+tipado dinámico y de propósito general, creado por Guido van Rossum y
+publicado por primera vez en 1991 \cite{vanrossum2009}. Se
+caracteriza por su sintaxis legible que prioriza la claridad del código,
+lo que lo convierte en uno de los lenguajes más utilizados tanto en
+educación como en entornos profesionales. En la actualidad, Python
+lidera índices de popularidad como el TIOBE Index y es la primera opción
+en campos como la ciencia de datos, la inteligencia artificial, la
+automatización y la ciberseguridad.
+
+\subsection{Concepto de Librería en Programación}
+
+Una librería es un conjunto de módulos, clases, funciones y recursos
+precompilados que permiten resolver tareas específicas dentro de un
+programa sin necesidad de implementar cada funcionalidad desde cero. Las
+librerías encapsulan lógica compleja y son distribuidas de forma que
+cualquier desarrollador pueda integrarlas mediante una instrucción de
+importación. A continuación se muestra un ejemplo de importación:
+
+\begin{lstlisting}[caption={Importación de la librería estándar hashlib en Python},
+                   label=lst:import_hashlib]
+import hashlib
+# hashlib permite calcular funciones hash criptograficas
+# como SHA-256, MD5 y SHA-512 sin instalacion adicional
+\end{lstlisting}
+
+En este ejemplo, la instrucción \texttt{import hashlib} carga el módulo
+completo en el espacio de nombres del programa. A partir de ese momento,
+todas las funciones y clases de la librería están disponibles mediante
+la notación de punto (ej. \texttt{hashlib.sha256()}).
+
+\subsection{Clasificación de Librerías de Python}
+
+\begin{table}[H]
+\centering
+\begin{threeparttable}
+\caption{\textit{Clasificación de librerías Python por área de aplicación}}
+\begin{tabular}{p{3cm}p{5cm}p{5cm}}
+\toprule
+\textbf{Clasificación} & \textbf{Descripción} & \textbf{Ejemplos} \\
+\midrule
+Analítica de datos & Limpiar, transformar y visualizar datos estructurados. & Pandas, NumPy, Matplotlib \\
+IA y ML & Modelos que aprenden de datos y realizan predicciones. & TensorFlow, PyTorch, Scikit-learn \\
+Procesamiento de lenguaje & Análisis de textos, palabras y lenguaje humano. & NLTK, spaCy, Transformers \\
+Ciberseguridad defensiva & Cifrar, verificar integridad, analizar archivos y red. & hashlib, yara-python, impacket, Scapy \\
+\bottomrule
+\end{tabular}
+\end{threeparttable}
+\end{table}
+
+\subsection{Importancia de las Librerías en Problemas Reales}
+
+En ciberseguridad, las librerías Python tienen un impacto directo en la
+capacidad de respuesta ante amenazas. hashlib permite verificar si un
+archivo ha sido alterado comparando su hash con el valor de referencia;
+yara-python permite escanear archivos en busca de firmas de malware
+conocidas; impacket es utilizada en auditorías para simular ataques
+sobre protocolos y detectar vulnerabilidades antes de su explotación.
+
+% ============================================================
+% CAPÍTULO IV: DESARROLLO DE LAS LIBRERÍAS
+% ============================================================
+\section{Desarrollo de las Librerías Seleccionadas}
+
+\subsection{Librería N.º 1: hashlib}
+
+\subsubsection{Nombre de la Librería}
+
+Nombre oficial: \texttt{hashlib}. Se importa con \texttt{import hashlib}.
+Es parte de la biblioteca estándar de Python desde la versión 2.5, sin
+requerir instalación adicional \cite{psf2024}.
+
+\subsubsection{Definición}
+
+hashlib proporciona interfaces para algoritmos de hash criptográficos:
+MD5, SHA-1, SHA-224, SHA-256, SHA-384, SHA-512 y BLAKE2. Una función
+hash transforma datos de entrada en una cadena de longitud fija
+(digest), de manera que un cambio mínimo produce un resumen
+completamente diferente: el efecto avalancha (Python Software Foundation,
+2024).
+
+\subsubsection{Características Principales}
+
+\begin{itemize}
+\item Algoritmos MD5, SHA-1, SHA-256, SHA-512 y BLAKE2 sin instalación.
+\item Cálculo de hashes de texto, archivos y flujos de datos.
+\item Compatible con Windows, Linux y macOS.
+\item Nivel de dificultad: básico.
+\item Integrable con hmac y secrets para aplicaciones criptográficas.
+\end{itemize}
+
+\subsubsection{Instalación e Importación}
+
+hashlib está incluida en la biblioteca estándar. No requiere \texttt{pip install}:
+
+\begin{lstlisting}[caption={Carga de hashlib sin instalación},
+                   label=lst:hashlib_import]
+# No se necesita instalacion - hashlib es parte de la stdlib
+import hashlib
+print(hashlib.algorithms_available)
+\end{lstlisting}
+
+\subsubsection{Funciones Principales}
+
+\begin{table}[H]
+\centering\footnotesize
+\begin{threeparttable}
+\caption{\textit{Métodos principales de la librería hashlib}}
+\begin{tabular}{p{5cm}p{3.8cm}p{3.7cm}}
+\toprule
+\textbf{Función} & \textbf{Propósito} & \textbf{Ejemplo} \\
+\midrule
+\texttt{hashlib.sha256()} & Crea objeto hash SHA-256. & \texttt{h = hashlib.sha256()} \\
+\texttt{hashlib.md5()} & Crea objeto hash MD5 (obsoleto). & \texttt{h = hashlib.md5()} \\
+\texttt{h.update(data)} & Alimenta datos al hash. & \texttt{h.update(b"texto")} \\
+\texttt{h.hexdigest()} & Retorna hash hexadecimal. & \texttt{print(h.hexdigest())} \\
+\texttt{h.digest()} & Retorna hash como bytes. & \texttt{h.digest()} \\
+\texttt{hashlib.new("sha512", data)} & Hash por nombre de algoritmo. & \texttt{hashlib.new("sha512", b"dato")} \\
+\bottomrule
+\end{tabular}
+\end{threeparttable}
+\end{table}
+
+\subsubsection{Ejemplo Práctico con APK Real}
+
+El siguiente fragmento, extraído del script \texttt{comparar\_hashes.py}
+publicado en el repositorio del proyecto, calcula simultáneamente
+MD5, SHA-1, SHA-256 y SHA-512 de dos APK de 52 MB cada uno, leyendo
+el archivo en bloques de 4096 bytes para no saturar la memoria RAM:
+
+\begin{lstlisting}[caption={Cálculo simultáneo de cuatro hashes sobre APK de 52 MB},
+                   label=lst:hashlib_apk]
+import hashlib, os, time
+
+DIR = "/home/alim/exposicion final/APKs"
+ARCHIVOS = ["CairosOriginal.apk", "CairosVenom.apk"]
+
+def calcular_hashes(ruta):
+    """Calcula MD5, SHA-1, SHA-256 y SHA-512 en una sola lectura."""
+    algoritmos = {
+        "MD5": hashlib.md5(),
+        "SHA-1": hashlib.sha1(),
+        "SHA-256": hashlib.sha256(),
+        "SHA-512": hashlib.sha512(),
+    }
+    with open(ruta, "rb") as f:
+        # Lectura por bloques de 4 KB para archivos grandes
+        for chunk in iter(lambda: f.read(4096), b""):
+            for h in algoritmos.values():
+                h.update(chunk)
+    return {nombre: obj.hexdigest()
+            for nombre, obj in algoritmos.items()}
+\end{lstlisting}
+
+\textbf{Explicación del código.} La función \texttt{calcular\_hashes}
+recibe la ruta de un archivo y construye un diccionario con cuatro
+objetos hash inicializados. El bucle \texttt{for chunk in iter(...)}
+lee el archivo en fragmentos de 4 KB; en cada iteración, los cuatro
+objetos hash son actualizados con \texttt{update(chunk)}. Al finalizar,
+se retorna un diccionario con los cuatro digests en formato hexadecimal.
+Este diseño evita cargar el archivo completo de 52 MB en memoria y
+reduce el tiempo de ejecución a 0.37 segundos al calcular los cuatro
+algoritmos en una sola pasada \cite{huacac2026}.
+
+\textbf{Demostración del efecto avalancha.} Una vez obtenidos los
+hashes, el script aplica una operación XOR bit a bit entre los bytes
+de los dos SHA-256 para cuantificar cuántos bits cambiaron:
+
+\begin{lstlisting}[caption={Cálculo del efecto avalancha con XOR sobre SHA-256},
+                   label=lst:avalancha]
+# Comparacion bit a bit de los digests SHA-256
+h1 = bytes.fromhex(original["SHA-256"])
+h2 = bytes.fromhex(envenenado["SHA-256"])
+bits_distintos = sum(bin(a ^ b).count('1')
+                     for a, b in zip(h1, h2))
+total_bits = len(h1) * 8
+porcentaje = (bits_distintos / total_bits) * 100
+# Resultado: 130/256 bits (50.8%)
+\end{lstlisting}
+
+El resultado obtenido fue 130 bits diferentes de 256 (50.8\%). Esto
+confirma que la inyección del payload de Metasploit —que solo agrega
+30,679 bytes al archivo— alteró radicalmente el hash, haciendo imposible
+predecir el nuevo valor a partir del original. Este es el principio
+fundamental de la verificación de integridad criptográfica.
+
+\subsubsection{Aplicación en Contexto Real}
+
+Se aplicó hashlib al análisis forense de dos APK reales:
+\texttt{CairosOriginal.apk} (52,400,958 bytes) y
+\texttt{CairosVenom.apk} (52,431,637 bytes). El segundo fue generado
+mediante MsfVenom inyectando un payload meterpreter\_reverse\_tcp. El
+script \texttt{comparar\_hashes.py} calculó los cuatro hashes, obteniendo
+valores completamente diferentes en los cuatro algoritmos, como se
+muestra en la Tabla~\ref{tab:hashes_apk}.
+
+\begin{table}[H]
+\centering
+\begin{threeparttable}
+\caption{\textit{Comparación de hashes entre APK original y envenenado}}
+\label{tab:hashes_apk}
+\begin{tabular}{p{1.8cm}p{5.3cm}p{5.3cm}}
+\toprule
+\textbf{Algoritmo} & \textbf{CairosOriginal.apk} & \textbf{CairosVenom.apk} \\
+\midrule
+MD5 & \texttt{3392a4d54f89...} & \texttt{7a35a20a6357...} \\
+SHA-1 & \texttt{1e4dc3d80c74...} & \texttt{cfb3bba30689...} \\
+SHA-256 & \texttt{6752e6831ed2...} & \texttt{fe1452b4900c...} \\
+SHA-512 & \texttt{201a5bacda49...} & \texttt{3708cf576bed...} \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\item \textit{Nota.} Los cuatro algoritmos producen valores completamente diferentes. Solo la inyección de 30 KB de payload fue suficiente para cambiar radicalmente todos los hashes. Adaptado de \enquote{hashlib-Jara} por ARENAS LLAMOCCA et al. \cite{huacac2026}.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\subsubsection{Ventajas y Limitaciones}
+
+\begin{table}[H]
+\centering
+\begin{threeparttable}
+\caption{\textit{Ventajas y limitaciones de hashlib}}
+\begin{tabular}{p{6.5cm}p{6.5cm}}
+\toprule
+\textbf{Ventajas} & \textbf{Limitaciones} \\
+\midrule
+Incluida en Python sin instalación. & MD5 y SHA-1 inseguros para uso criptográfico. \\
+Interfaz simple y documentación oficial extensa. & No cifra datos, solo genera resúmenes. \\
+Múltiples algoritmos en una sola API. & Para contraseñas usar bcrypt o argon2. \\
+Eficiente con archivos grandes (lectura por bloques). & No gestiona claves ni certificados digitales. \\
+\bottomrule
+\end{tabular}
+\end{threeparttable}
+\end{table}
+
+\subsection{Librería N.º 2: yara-python}
+
+\subsubsection{Nombre de la Librería}
+
+Nombre oficial: \texttt{yara-python}. Se instala con
+\texttt{pip install yara-python} y se importa como \texttt{import yara}.
+Es la interfaz Python del motor YARA, la herramienta de detección de
+malware basada en reglas más utilizada en análisis forense digital
+\cite{virustotal2024}.
+
+\subsubsection{Definición}
+
+yara-python expone la API de YARA, un motor de detección de patrones
+diseñado para identificar y clasificar malware mediante reglas que
+combinan cadenas de texto, patrones hexadecimales y condiciones lógicas.
+Fue creado por Víctor Manuel Álvarez \cite{alvarez2014} y es mantenido por
+VirusTotal (Google).
+
+\subsubsection{Características Principales}
+
+\begin{itemize}
+\item Reglas de detección con texto, bytes hexadecimales y expresiones regulares.
+\item Análisis de archivos, directorios y procesos en memoria.
+\item Nivel de dificultad: intermedio (requiere sintaxis YARA).
+\item Base de plataformas como VirusTotal, Cuckoo Sandbox y MISP.
+\item Más de 1000 reglas públicas disponibles en repositorios comunitarios.
+\end{itemize}
+
+\subsubsection{Instalación e Importación}
+
+\begin{lstlisting}[caption={Instalación e importación de yara-python},
+                   label=lst:yara_install]
+# Instalacion
+pip install yara-python
+
+# Importacion
+import yara
+\end{lstlisting}
+
+\subsubsection{Funciones Principales}
+
+\begin{table}[H]
+\centering\footnotesize
+\begin{threeparttable}
+\caption{\textit{Métodos principales de yara-python}}
+\begin{tabular}{p{5cm}p{3.8cm}p{3.7cm}}
+\toprule
+\textbf{Función} & \textbf{Propósito} & \textbf{Ejemplo} \\
+\midrule
+\texttt{yara.compile(source=)} & Compila reglas desde cadena. & \texttt{r = yara.compile(source=s)} \\
+\texttt{yara.compile(filepath=)} & Compila desde archivo .yar. & \texttt{r = yara.compile(filepath="r.yar")} \\
+\texttt{regla.match(filepath=)} & Escanea archivo y retorna matches. & \texttt{matches = r.match(filepath="f.exe")} \\
+\texttt{regla.match(data=)} & Escanea datos en memoria. & \texttt{r.match(data=contenido)} \\
+\texttt{matches[i].rule} & Nombre de la regla activada. & \texttt{print(matches[0].rule)} \\
+\texttt{matches[i].strings} & Cadenas que activaron la regla. & \texttt{print(matches[0].strings)} \\
+\bottomrule
+\end{tabular}
+\end{threeparttable}
+\end{table}
+
+\subsubsection{Ejemplo Práctico: Detección de Payload en DEX}
+
+El siguiente fragmento del script \texttt{detector\_yara.py} define
+dos reglas YARA para detectar payloads de Metasploit dentro del archivo
+classes.dex de un APK Android. Las reglas se compilan en tiempo de
+ejecución y se aplican sobre el DEX extraído:
+
+\begin{lstlisting}[caption={Reglas YARA para detección de payload Metasploit en DEX de APK},
+                   label=lst:yara_dex]
+import yara
+
+REGLAS_DEX = yara.compile(source="""
+    rule dex_metasploit_payload {
+        meta:
+            description = "Detecta payload de Metasploit en DEX"
+            severity = "critical"
+        strings:
+            $a = "Ljava/lang/reflect/Method;"
+            $b = "Ljava/net/URLConnection;"
+            $c = "addRequestProperty"
+            $d = ";->startService(Landroid/content/Context;)V"
+            $e = ";->openConnection()Ljava/net/URLConnection;"
+        condition:
+            uint32(0) == 0x0A786564 and
+            4 of them
+    }
+
+    rule dex_payload_backdoor {
+        meta:
+            description = "Estructura tipica de RAT/backdoor Android"
+            severity = "high"
+        strings:
+            $ref = "Ljava/lang/reflect/Method;"
+            $start = ";->startService(Landroid/content/Context;)V"
+        condition:
+            uint32(0) == 0x0A786564 and
+            all of them
+    }
+""")
+\end{lstlisting}
+
+\textbf{Explicación de las reglas.} La regla
+\texttt{dex\_metasploit\_payload} busca cinco indicadores
+característicos de un RAT Android: uso de reflexión
+(\texttt{java/lang/reflect/Method}) para invocar métodos dinámicamente,
+conexiones de red (\texttt{java/net/URLConnection}) para comunicarse con
+el servidor de comando y control, envío de cabeceras HTTP
+(\texttt{addRequestProperty}), inicio de servicios remotos
+(\texttt{;->startService}) y apertura de conexiones URL
+(\texttt{;->openConnection()}). La condición exige al menos cuatro de
+estos cinco patrones y verifica que el archivo comience con el magic
+number DEX (\texttt{0x0A786564}), evitando falsos positivos en archivos
+no ejecutables \cite{huacac2026}.
+
+\textbf{Análisis combinado con Androguard.} El detector complementa
+YARA con heurísticas del manifiesto Android mediante la librería
+Androguard:
+
+\begin{lstlisting}[caption={Análisis heurístico del AndroidManifest con Androguard},
+                   label=lst:androguard]
+from androguard.core.apk import APK
+
+PERMISOS_PELIGROSOS = [
+    "android.permission.READ_SMS",
+    "android.permission.CAMERA",
+    "android.permission.RECORD_AUDIO",
+    "android.permission.READ_CALL_LOG",
+    # ... 10 permisos mas monitoreados
+]
+
+apk = APK(ruta_apk)
+permisos = apk.get_permissions()
+# Contar cuantos permisos peligrosos se declararon
+peligrosos = [p for p in permisos
+              if p in PERMISOS_PELIGROSOS]
+
+# Detectar subpaquetes inyectados con nombres aleatorios
+main_package = apk.get_package()
+subpaquetes = [p for p in paquetes
+               if p.startswith(main_package)
+               and p != main_package]
+\end{lstlisting}
+
+El código anterior extrae la lista de permisos del AndroidManifest.xml
+mediante Androguard, filtra aquellos clasificados como peligrosos y
+detecta subpaquetes inyectados con nombres aleatorios de 5 caracteres
+(generados por MsfVenom al embeber el payload). En el APK envenenado se
+encontraron 14 permisos peligrosos y un subpaquete
+\texttt{com.example.cairos.dfwto} \cite{huacac2026}.
+
+\subsubsection{Aplicación en Contexto Real}
+
+El detector analizó tres APK y clasificó correctamente el original como
+LIMPIO y los dos envenenados como ENVENENADOS, como se resume en la
+Tabla~\ref{tab:resultados_deteccion}.
+
+\begin{table}[H]
+\centering\footnotesize
+\begin{threeparttable}
+\caption{\textit{Resultados del detector YARA + Androguard sobre los tres APK}}
+\label{tab:resultados_deteccion}
+\begin{tabular}{p{3.3cm}p{3.2cm}p{3.2cm}p{2.8cm}}
+\toprule
+\textbf{Indicador} & \textbf{CairosOriginal} & \textbf{CairosVenom} & \textbf{payload.apk} \\
+\midrule
+Tamaño & 52.4 MB & 52.4 MB & 10 KB \\
+Permisos totales & 2 & 24 & 23 \\
+Permisos peligrosos & 0 & 14 & 14 \\
+Subpaquetes extras & 0 & 1 (dfwto) & 0 \\
+Tamaño DEX & 812 KB & 993 KB & 20 KB \\
+\textbf{Veredicto} & \textbf{LIMPIO} & \textbf{ENVENENADO} & \textbf{ENVENENADO} \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\item \textit{Nota.} El sistema de puntuación combina permisos peligrosos, subpaquetes inyectados y tamaño de DEX. Puntuación $\geq 5$ = ENVENENADO. Adaptado de \enquote{hashlib-Jara} por ARENAS LLAMOCCA et al. \cite{huacac2026}.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\subsubsection{Ventajas y Limitaciones}
+
+\begin{table}[H]
+\centering
+\begin{threeparttable}
+\caption{\textit{Ventajas y limitaciones de yara-python}}
+\begin{tabular}{p{6.5cm}p{6.5cm}}
+\toprule
+\textbf{Ventajas} & \textbf{Limitaciones} \\
+\midrule
+Estándar industrial para detección de malware. & Requiere sintaxis YARA para reglas efectivas. \\
+Combina strings, bytes, regex y lógica booleana. & Reglas mal escritas generan falsos positivos. \\
+Miles de reglas públicas en GitHub y VirusTotal. & No detecta malware polimórfico avanzado. \\
+Escanea archivos, procesos y datos en memoria. & Necesita actualización constante de reglas. \\
+\bottomrule
+\end{tabular}
+\end{threeparttable}
+\end{table}
+
+\subsection{Librería N.º 3: impacket}
+
+\subsubsection{Nombre de la Librería}
+
+Nombre oficial: \texttt{impacket}. Instalación: \texttt{pip install impacket}.
+Su importación es modular: \texttt{from impacket.smbconnection import
+SMBConnection}, \texttt{from impacket import smb, ntlm}.
+
+\subsubsection{Definición}
+
+impacket es una colección de clases Python para protocolos de red de
+bajo nivel en entornos Windows: SMB1/2/3, MSRPC, NTLM, Kerberos, LDAP,
+MSSQL, WMI y DCOM \cite{fortra2024}. Es mantenida por la comunidad y base
+de herramientas como secretsdump, wmiexec y crackmapexec.
+
+\subsubsection{Características Principales}
+
+\begin{itemize}
+\item Implementa SMB, Kerberos, NTLM, LDAP, MSSQL y WMI en Python puro.
+\item Construcción y análisis de paquetes a nivel de protocolo.
+\item Nivel avanzado: requiere conocimientos de redes Windows.
+\item Más de 20 scripts de ejemplo listos para auditorías.
+\item Base de BloodHound, crackmapexec y secretsdump.
+\end{itemize}
+
+\subsubsection{Instalación e Importación}
+
+\begin{lstlisting}[caption={Instalación e importación modular de impacket},
+                   label=lst:impacket_install]
+# Instalacion
+pip install impacket
+
+# Importacion por modulo
+from impacket.smbconnection import SMBConnection
+from impacket import smb, ntlm
+from impacket.krb5 import kerberosv5
+\end{lstlisting}
+
+\subsubsection{Funciones Principales}
+
+\begin{table}[H]
+\centering\footnotesize
+\begin{threeparttable}
+\caption{\textit{Métodos principales de impacket}}
+\begin{tabular}{p{5cm}p{3.8cm}p{3.7cm}}
+\toprule
+\textbf{Módulo} & \textbf{Propósito} & \textbf{Ejemplo} \\
+\midrule
+\texttt{SMBConnection()} & Conexión SMB a servidor. & \texttt{conn = SMBConnection(ip, ip)} \\
+\texttt{conn.login(u, p)} & Autenticación con credenciales. & \texttt{conn.login("user", "pass")} \\
+\texttt{conn.listShares()} & Lista recursos compartidos. & \texttt{shares = conn.listShares()} \\
+\texttt{ntlm.getNTLMSSPType1()} & Mensaje NTLM Tipo 1. & \texttt{msg = getNTLMSSPType1()} \\
+\texttt{kerberosv5.getKerberosTGT()} & Ticket TGT Kerberos. & \texttt{tgt = getKerberosTGT(...)} \\
+\bottomrule
+\end{tabular}
+\end{threeparttable}
+\end{table}
+
+\subsubsection{Limitaciones para la Documentación Práctica}
+
+Durante el desarrollo de esta informe se encontraron barreras técnicas
+y legales que impidieron la ejecución de pruebas reales con impacket:
+
+\begin{enumerate}
+\item \textbf{Dependencia de Active Directory real.} Los módulos Kerberos
+  requieren un Key Distribution Center (KDC) funcional. Sin un
+  controlador de dominio Windows Server configurado con usuarios y
+  políticas de autenticación, las funciones \texttt{getKerberosTGT()} y
+  \texttt{getKerberosTGS()} retornan errores de conexión irrecuperables.
+  Montar un laboratorio completo con Windows Server excede el alcance de
+  este trabajo.
+
+\item \textbf{Necesidad de credenciales privilegiadas.} Scripts como
+  \texttt{secretsdump.py} y \texttt{GetNPUsers.py} requieren cuentas de
+  dominio con privilegios específicos (ej. permisos de replicación para
+  DCSync). La generación de estas credenciales implica administración
+  completa de un dominio, requiriendo autorización institucional formal.
+
+\item \textbf{Complejidad del código base.} impacket implementa más de 20
+  módulos con estructuras ASN.1, mecanismos GSS-API, cifrado RC4-HMAC y
+  AES para Kerberos, y parsing de PAC (Privilege Attribute Certificate).
+  Documentar un flujo completo requeriría analizar miles de líneas de
+  código que operan en capas OSI profundas.
+
+\item \textbf{Implicaciones éticas y legales.} Ejecutar herramientas de
+  impacket contra sistemas sin autorización constituiría un delito
+  informático según la Ley N.º 30096 (Ley de Delitos Informáticos del
+  Perú). Por ello, la documentación se limita al análisis conceptual.
+
+\end{enumerate}
+
+No obstante, impacket es una herramienta de valor incalculable en
+auditorías profesionales. Su inclusión responde al objetivo de
+documentar su arquitectura y aplicaciones teóricas \cite{fortra2024}.
+
+\subsubsection{Aplicación en Contexto Real}
+
+Un auditor de seguridad utiliza impacket en entorno controlado para
+verificar configuraciones SMB expuestas y vulnerabilidades NTLM en
+servidores Windows, con autorización formal de la organización.
+
+\subsubsection{Ventajas y Limitaciones}
+
+\begin{table}[H]
+\centering
+\begin{threeparttable}
+\caption{\textit{Ventajas y limitaciones de impacket}}
+\begin{tabular}{p{6.5cm}p{6.5cm}}
+\toprule
+\textbf{Ventajas} & \textbf{Limitaciones} \\
+\midrule
+Protocolos Windows en Python puro. & Nivel avanzado: requiere redes Windows. \\
+Base de herramientas profesionales. & Uso no autorizado: delito informático. \\
+Análisis a nivel de paquete de protocolos. & Documentación técnica densa. \\
+Actualización constante de protocolos. & Requiere laboratorio con VMs Windows. \\
+\bottomrule
+\end{tabular}
+\end{threeparttable}
+\end{table}
+
+% ============================================================
+% CAPÍTULO V: CUADRO COMPARATIVO
+% ============================================================
+\section{Cuadro Comparativo de las Librerías}
+
+\begin{table}[H]
+\centering\footnotesize
+\begin{threeparttable}
+\caption{\textit{Cuadro comparativo de hashlib, yara-python e impacket}}
+\begin{tabular}{p{2.5cm}p{3.5cm}p{3.5cm}p{3.5cm}}
+\toprule
+\textbf{Criterio} & \textbf{hashlib} & \textbf{yara-python} & \textbf{impacket} \\
+\midrule
+Área & Integridad criptográfica. & Detección de malware. & Análisis de protocolos. \\
+Uso principal & Calcular hashes SHA-256, MD5. & Escanear con reglas YARA. & Implementar SMB, Kerberos. \\
+Nivel & Básico. & Intermedio. & Avanzado. \\
+Datos & Archivos, strings, bytes. & Archivos, memoria, flujos. & Paquetes de red, tickets. \\
+Instalación & Incluida (stdlib). & \texttt{pip install yara-python}. & \texttt{pip install impacket}. \\
+Ventaja clave & Sin instalación, API simple. & Estándar industrial antimalware. & Protocolos reales en Python. \\
+Limitación & MD5/SHA-1 obsoletos. & Requiere sintaxis YARA. & Necesita dominio y credenciales. \\
+Práctica & Hashes de APK 52 MB en 0.37s. & Detección de payload en DEX + Androguard. & Documentación teórica. \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\item \textit{Nota.} La práctica con impacket fue documentada teóricamente por las barreras de autenticación descritas en la Sección 4.3.6.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\subsection{Análisis Interpretativo}
+
+hashlib resultó la más accesible por su inclusión en la biblioteca
+estándar, procesando APK de 52 MB en 0.37 segundos con cuatro hashes
+simultáneos. La comparación XOR del SHA-256 cuantificó el efecto
+avalancha en 50.8\%. yara-python, con nivel intermedio, demostró que
+la combinación de reglas sobre el DEX con heurísticas de Androguard
+produce clasificación precisa de APKs envenenados. impacket, de nivel
+avanzado, no pudo ser probada en la práctica por requerir un KDC
+funcional y credenciales de dominio, pero se documentó su arquitectura.
+
+Las tres librerías son complementarias: hashlib verifica integridad,
+yara-python detecta malware e impacket analiza protocolos de red. Juntas
+conforman una cadena de análisis defensivo coherente.
+
+% ============================================================
+% CAPÍTULO VI: PARTE PRÁCTICA
+% ============================================================
+\section{Parte Práctica: Análisis Forense de APKs}
+
+\subsection{Plataforma Utilizada}
+
+Se utilizó un entorno Linux con Python 3.14, un entorno virtual
+(\texttt{venv}) con yara-python y androguard, más las herramientas
+apktool, msfvenom y Metasploit Framework para generar el APK envenenado.
+Los notebooks de Google Colab y el repositorio GitHub complementan la
+práctica.
+
+\subsection{Descripción del Problema}
+
+Determinar si un APK ha sido manipulado con payload malicioso inyectado
+por MsfVenom. Se analizan tres archivos: \texttt{CairosOriginal.apk}
+(Flutter legítima, 52.4 MB), \texttt{CairosVenom.apk} (misma app con
+payload meterpreter\_reverse\_tcp) y \texttt{payload.apk} (APK standalone
+de msfvenom, 10 KB). El análisis consta de dos fases: (1) comparación de
+hashes criptográficos, y (2) detección automatizada con YARA + Androguard.
+
+\subsection{Datos Utilizados}
+
+\begin{itemize}
+\item \texttt{CairosOriginal.apk}: 52,400,958 bytes, 2 permisos.
+\item \texttt{CairosVenom.apk}: 52,431,637 bytes, 24 permisos, subpaquete \texttt{dfwto}.
+\item \texttt{payload.apk}: 10,246 bytes, 23 permisos.
+\end{itemize}
+
+\subsection{Código Desarrollado: Fase 1 (hashlib)}
+
+El script \texttt{comparar\_hashes.py} implementa la comparación
+criptográfica de los APK. Su estructura se detalla en los Listados
+\ref{lst:hashlib_apk} y \ref{lst:avalancha} de la Sección 4.1.6.
+
+\subsection{Código Desarrollado: Fase 2 (YARA + Androguard)}
+
+El script \texttt{detector\_yara.py} implementa un motor de detección
+multicapa. Su estructura de reglas se detalla en el Listado
+\ref{lst:yara_dex} y el análisis heurístico en el Listado
+\ref{lst:androguard} de la Sección 4.2.6. El sistema asigna una
+puntuación de riesgo que combina todos los indicadores detectados.
+
+\subsection{Explicación del Código}
+
+La Fase 1 utiliza lectura por bloques de 4 KB para procesar archivos de
+más de 50 MB sin saturar la RAM, calculando cuatro algoritmos en una
+sola pasada (0.37 segundos). La comparación XOR bit a bit del SHA-256
+cuantifica el efecto avalancha.
+
+La Fase 2 emplea detección por capas: (a) reglas YARA que buscan firmas
+de RAT en el DEX (reflexión, red, servicios); (b) análisis del
+AndroidManifest.xml con Androguard para contar permisos peligrosos; (c)
+detección de subpaquetes con nombres aleatorios de 5 caracteres
+generados por MsfVenom; (d) comparación del tamaño del DEX. Cada
+indicador suma puntos; si el total supera 5, el APK se clasifica como
+ENVENENADO \cite{huacac2026}.
+
+\subsection{Resultados Obtenidos}
+
+Los resultados completos se presentan en la Tabla
+\ref{tab:resultados_deteccion} de la Sección 4.2.7. En resumen:
+CairosOriginal.apk fue clasificado LIMPIO (2 permisos, sin subpaquetes);
+CairosVenom.apk fue clasificado ENVENENADO (24 permisos, 14 peligrosos,
+subpaquete \texttt{dfwto}); payload.apk fue clasificado ENVENENADO (23
+permisos, 14 peligrosos).
+
+Adicionalmente, los hashes criptográficos de la Tabla
+\ref{tab:hashes_apk} confirmaron que todos los algoritmos producen
+valores diferentes entre el original y el envenenado, validando la
+detección de modificaciones.
+
+\subsection{Enlaces y Evidencias}
+
+\begin{itemize}
+\item Repositorio GitHub:\\ \url{https://github.com/AlvaroHuacacSoto/hashlib-Jara}
+\item Notebook hashlib:\\ \url{https://colab.research.google.com/drive/1oXyDNrLdfR4-8oltR1WURTp8IMK65TTF}
+\item Notebook yara-python:\\ \url{https://colab.research.google.com/drive/173T7NiHw52sU_ySdK0RQoJzm5KdplAmp}
+\end{itemize}
+
+% ============================================================
+% CAPÍTULO VII: CASO PRÁCTICO
+% ============================================================
+\section{Caso Práctico: Detección de APK Envenenado}
+
+\subsection{Descripción del Caso}
+
+Un desarrollador independiente descubre que una versión modificada de su
+aplicación \texttt{Cairos.apk} circula en foros de terceros. La versión
+legítima es una app Flutter de 52 MB con solo 2 permisos. La versión
+sospechosa solicita 24 permisos, incluyendo acceso a SMS, cámara,
+micrófono y contactos. El desarrollador necesita determinar técnicamente
+si el APK fue manipulado.
+
+\subsection{Problema Identificado}
+
+\begin{itemize}
+\item El APK circulante solicita 24 permisos (14 peligrosos) frente a 2 del original.
+\item Los hashes criptográficos no coinciden con la versión legítima.
+\item Se sospecha inyección de RAT mediante Metasploit/MsfVenom.
+\item Se necesita un método automatizado y reproducible de detección.
+\end{itemize}
+
+\subsection{Solución Propuesta}
+
+Se desarrollaron dos scripts Python complementarios:
+
+\begin{itemize}
+\item \textbf{comparar\_hashes.py}: calcula MD5, SHA-1, SHA-256 y SHA-512 de
+  ambos APK. La diferencia en los cuatro algoritmos confirma alteración.
+  El XOR del SHA-256 revela 50.8\% de bits cambiados.
+
+\item \textbf{detector\_yara.py}: motor de detección que combina reglas
+  YARA sobre el DEX con heurísticas del manifiesto (permisos,
+  subpaquetes). Emite veredicto LIMPIO/ENVENENADO con puntuación.
+\end{itemize}
+
+\subsection{Beneficios de la Solución}
+
+\begin{itemize}
+\item Verificación de integridad en segundos mediante comparación de hash.
+\item Detección automatizada sin ingeniería inversa manual.
+\item Reproducible: clonar repositorio, instalar dependencias, ejecutar.
+\item Aplicable a detección de malware en tiendas alternativas y campañas de phishing.
+\end{itemize}
+
+\begin{table}[H]
+\centering
+\begin{threeparttable}
+\caption{\textit{Resumen del caso práctico}}
+\begin{tabular}{p{3.5cm}p{9cm}}
+\toprule
+\textbf{Elemento} & \textbf{Descripción} \\
+\midrule
+Contexto & Desarrollador descubre APK alterado en distribución no autorizada. \\
+Problema & 24 permisos (14 peligrosos) vs 2 originales; hashes no coinciden; payload Metasploit. \\
+Archivos & \texttt{CairosOriginal.apk}, \texttt{CairosVenom.apk}, \texttt{payload.apk}. \\
+Librerías & hashlib (integridad), yara-python + androguard (detección), impacket (documentación teórica). \\
+Ataque & MsfVenom (payload android/meterpreter/reverse\_tcp). \\
+Resultado & Original LIMPIO, envenenado ENVENENADO con 14 indicadores. \\
+\bottomrule
+\end{tabular}
+\end{threeparttable}
+\end{table}
+
+% ============================================================
+% CONCLUSIONES
+% ============================================================
+\section{Conclusiones}
+
+\begin{enumerate}
+\item Las librerías hashlib, yara-python e impacket demuestran que Python
+  es una plataforma robusta para ciberseguridad defensiva. Cada librería
+  aborda una dimensión diferente: integridad (hashlib), detección
+  (yara-python) y análisis de protocolos (impacket). El proyecto
+  práctico con APKs envenenados validó las dos primeras en un escenario
+  real; impacket fue documentada teóricamente por las barreras de
+  autenticación que requiere.
+
+\item El análisis de hashes confirmó el efecto avalancha: los cuatro
+  algoritmos produjeron valores diferentes entre el APK original y el
+  envenenado, con 130 de 256 bits (50.8\%) distintos en SHA-256. La
+  lectura por bloques de 4 KB procesó archivos de 52 MB en 0.37 segundos
+  calculando cuatro hashes simultáneos.
+
+\item El detector clasificó correctamente los tres APK: original como
+  LIMPIO (2 permisos), envenenado como ENVENENADO (24 permisos,
+  subpaquete inyectado \texttt{dfwto}) y payload standalone como
+  ENVENENADO. La combinación de reglas YARA con heurísticas de
+  Androguard fue más efectiva que cualquiera de las técnicas por
+  separado.
+
+\item Herramientas de código abierto como MsfVenom pueden generar APKs
+  maliciosos indetectables a simple vista, pero las librerías Python
+  permiten identificarlos mediante análisis automatizado de su estructura
+  interna. Esto demuestra el valor de la ciberseguridad defensiva basada
+  en software libre.
+\end{enumerate}
+
+% ============================================================
+% RECOMENDACIONES
+% ============================================================
+\section{Recomendaciones}
+
+\begin{itemize}
+\item Clonar el repositorio \url{https://github.com/AlvaroHuacacSoto/hashlib-Jara}
+  que contiene todos los scripts, APK de prueba y este documento.
+
+\item Revisar los notebooks de Google Colab como complemento interactivo.
+
+\item Usar SHA-256 o SHA-512 sobre MD5/SHA-1 en aplicaciones de seguridad,
+  por sus vulnerabilidades de colisión conocidas.
+
+\item Combinar reglas YARA con análisis estructural del manifiesto Android
+  para reducir falsos negativos en detección de malware móvil.
+
+\item Para impacket, montar un laboratorio controlado con Windows Server y
+  obtener autorización formal antes de ejecutar cualquier script.
+
+\item Mantener actualizadas las reglas YARA con firmas de repositorios
+  comunitarios como YARA-Rules y VirusTotal.
+
+\item Aplicar principios éticos y legales en toda práctica: obtener
+  autorización escrita antes de auditar sistemas externos.
+\end{itemize}
+
+% ============================================================
+% REFERENCIAS (ISO 690)
+% ============================================================
+\begin{thebibliography}{99}
+
+\bibitem{alvarez2014}
+ÁLVAREZ, Víctor Manuel. \textit{YARA: The pattern matching swiss knife for
+malware researchers} [en línea]. VirusTotal Blog, 2014
+[consulta: 30 junio 2026]. Disponible en:
+\url{https://www.virustotal.com/gui/blog}
+
+\bibitem{androguard2024}
+ANDROGUARD. \textit{Androguard: Reverse engineering tool for Android
+applications} (versión 4.1) [software]. GitHub, 2024
+[consulta: 30 junio 2026]. Disponible en:
+\url{https://github.com/androguard/androguard}
+
+\bibitem{fortra2024}
+FORTRA. \textit{impacket: A collection of Python classes for working
+with network protocols} [software]. GitHub, 2024
+[consulta: 30 junio 2026]. Disponible en:
+\url{https://github.com/fortra/impacket}
+
+\bibitem{huacac2026}
+ARENAS LLAMOCCA, Kyet Albert, CONDORI NAYHUA, Eulalia, CRUZ ACEVEDO,
+Joseph Abiud, HUACAC SOTO, Alvaro y MAROCHO HUAMAN, Alexander.
+\textit{hashlib-Jara: Detección de APKs envenenados con Python}
+[repositorio de código fuente]. GitHub, 2026
+[consulta: 30 junio 2026]. Disponible en:
+\url{https://github.com/AlvaroHuacacSoto/hashlib-Jara}
+
+\bibitem{ley30096}
+PERÚ. Congreso de la República. \textit{Ley N.º 30096: Ley de Delitos
+Informáticos} [en línea]. Lima, 2013
+[consulta: 30 junio 2026]. Disponible en:
+\url{https://www.gob.pe/institucion/congreso-de-la-republica/normas-legales}
+
+\bibitem{psf2024}
+PYTHON SOFTWARE FOUNDATION. \textit{hashlib --- Secure hashes and
+message digests}. Python 3.12 Documentation [en línea]. 2024
+[consulta: 30 junio 2026]. Disponible en:
+\url{https://docs.python.org/3/library/hashlib.html}
+
+\bibitem{rapid72024}
+RAPID7. \textit{Metasploit Framework Documentation} [en línea]. 2024
+[consulta: 30 junio 2026]. Disponible en:
+\url{https://docs.metasploit.com/}
+
+\bibitem{secureauth2023}
+SECUREAUTH CORPORATION. \textit{Impacket scripts and examples for
+network protocol analysis} [software]. GitHub, 2023
+[consulta: 30 junio 2026]. Disponible en:
+\url{https://github.com/fortra/impacket/tree/master/examples}
+
+\bibitem{vanrossum2009}
+VAN ROSSUM, Guido y DRAKE, Fred L. \textit{Python 3 Reference Manual}
+[en línea]. Python Software Foundation, 2009
+[consulta: 30 junio 2026]. Disponible en:
+\url{https://docs.python.org/3/reference/}
+
+\bibitem{virustotal2024}
+VIRUSTOTAL / GOOGLE. \textit{YARA documentation} (versión 4.5) [en línea]. 2024
+[consulta: 30 junio 2026]. Disponible en:
+\url{https://virustotal.github.io/yara/}
+
+\end{thebibliography}
+
+% ============================================================
+% ANEXOS
+% ============================================================
+\section*{Anexos}
+
+\subsection*{Anexo A: Código Fuente Completo}
+
+El código fuente completo de \texttt{comparar\_hashes.py} y
+\texttt{detector\_yara.py} está disponible en el repositorio:
+\url{https://github.com/AlvaroHuacacSoto/hashlib-Jara}
+
+\subsection*{Anexo B: Reglas YARA Utilizadas}
+
+\begin{lstlisting}[caption={Regla YARA: dex\_metasploit\_payload},
+                   label=lst:anexo_yara1]
+rule dex_metasploit_payload {
+    meta:
+        description = "Detecta payload de Metasploit en DEX"
+        author = "Lab Seguridad"
+        severity = "critical"
+    strings:
+        $a = "Ljava/lang/reflect/Method;"
+        $b = "Ljava/net/URLConnection;"
+        $c = "addRequestProperty"
+        $d = ";->startService(Landroid/content/Context;)V"
+        $e = ";->openConnection()Ljava/net/URLConnection;"
+    condition:
+        uint32(0) == 0x0A786564 and
+        4 of them
+}
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Regla YARA: dex\_payload\_backdoor},
+                   label=lst:anexo_yara2]
+rule dex_payload_backdoor {
+    meta:
+        description = "Estructura tipica de RAT/backdoor Android"
+        severity = "high"
+    strings:
+        $ref = "Ljava/lang/reflect/Method;"
+        $start = ";->startService(Landroid/content/Context;)V"
+    condition:
+        uint32(0) == 0x0A786564 and
+        all of them
+}
+\end{lstlisting}
+
+\subsection*{Anexo C: Enlaces a Google Colab}
+
+\begin{itemize}
+\item hashlib: \url{https://colab.research.google.com/drive/1oXyDNrLdfR4-8oltR1WURTp8IMK65TTF}
+\item yara-python: \url{https://colab.research.google.com/drive/173T7NiHw52sU_ySdK0RQoJzm5KdplAmp}
+\end{itemize}
+
+\subsection*{Anexo D: Evidencias de Ejecución}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{evidencia_comparar_hashes.png}
+\caption{\textit{Ejecución de comparar\_hashes.py mostrando los cuatro hashes de los APK y el efecto avalancha}}
+\label{fig:evidencia_hashlib}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{evidencia_detector_yara.png}
+\caption{\textit{Ejecución de detector\_yara.py clasificando los tres APK (LIMPIO/ENVENENADO)}}
+\label{fig:evidencia_yara}
+\end{figure}
+
+\end{document}
