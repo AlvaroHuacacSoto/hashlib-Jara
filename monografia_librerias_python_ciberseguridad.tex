@@ -84,7 +84,7 @@
 % --- Metadatos PDF ---
 \hypersetup{
   pdftitle={Librerías Python para Ciberseguridad Defensiva},
-  pdfauthor={Alvaro Huacac Soto},
+  pdfauthor={Arenas Llamocca, Condori, Cruz, Huacac \& Marocho},
   pdfsubject={Monografía - Ciberseguridad},
   pdfkeywords={hashlib, yara-python, impacket, Python, APK, malware},
 }
@@ -111,7 +111,11 @@
 {\large Monografía de Investigación}\\[12pt]
 {\large Curso: Programación Aplicada a la Ciberseguridad}\\[36pt]
 
-{\large Alvaro Huacac Soto}\\[8pt]
+{\large Arenas Llamocca, Kyet Albert}\\[4pt]
+{\large Condori Nayhua, Eulalia}\\[4pt]
+{\large Cruz Acevedo, Joseph Abiud}\\[4pt]
+{\large Huacac Soto, Alvaro}\\[4pt]
+{\large Marocho Huaman, Alexander}\\[24pt]
 {\large Instituto de Educación Superior Tecnológico}\\[24pt]
 
 {\large 29 de junio de 2026}
@@ -449,7 +453,7 @@ objetos hash son actualizados con \texttt{update(chunk)}. Al finalizar,
 se retorna un diccionario con los cuatro digests en formato hexadecimal.
 Este diseño evita cargar el archivo completo de 52 MB en memoria y
 reduce el tiempo de ejecución a 0.37 segundos al calcular los cuatro
-algoritmos en una sola pasada (Huacac Soto, 2026).
+algoritmos en una sola pasada (Arenas Llamocca et al., 2026).
 
 \textbf{Demostración del efecto avalancha.} Una vez obtenidos los
 hashes, el script aplica una operación XOR bit a bit entre los bytes
@@ -499,7 +503,7 @@ SHA-512 & \texttt{201a5bacda494...} & \texttt{3708cf576beda8...} \\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}
-\item \textit{Nota.} Los cuatro algoritmos producen valores completamente diferentes. Solo la inyección de 30 KB de payload fue suficiente para cambiar radicalmente todos los hashes. Adaptado de \enquote{hashlib-Jara} por Huacac Soto (2026).
+\item \textit{Nota.} Los cuatro algoritmos producen valores completamente diferentes. Solo la inyección de 30 KB de payload fue suficiente para cambiar radicalmente todos los hashes. Adaptado de \enquote{hashlib-Jara} por Arenas Llamocca et al. (2026).
 \end{tablenotes}
 \end{threeparttable}
 \end{table}
@@ -635,7 +639,7 @@ el servidor de comando y control, envío de cabeceras HTTP
 (\texttt{;->openConnection()}). La condición exige al menos cuatro de
 estos cinco patrones y verifica que el archivo comience con el magic
 number DEX (\texttt{0x0A786564}), evitando falsos positivos en archivos
-no ejecutables (Huacac Soto, 2026).
+no ejecutables (Arenas Llamocca et al., 2026).
 
 \textbf{Análisis combinado con Androguard.} El detector complementa
 YARA con heurísticas del manifiesto Android mediante la librería
@@ -671,7 +675,7 @@ mediante Androguard, filtra aquellos clasificados como peligrosos y
 detecta subpaquetes inyectados con nombres aleatorios de 5 caracteres
 (generados por MsfVenom al embeber el payload). En el APK envenenado se
 encontraron 14 permisos peligrosos y un subpaquete
-\texttt{com.example.cairos.dfwto} (Huacac Soto, 2026).
+\texttt{com.example.cairos.dfwto} (Arenas Llamocca et al., 2026).
 
 \subsubsection{Aplicación en Contexto Real}
 
@@ -697,7 +701,7 @@ Tamaño DEX & 812 KB & 993 KB & 20 KB \\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}
-\item \textit{Nota.} El sistema de puntuación combina permisos peligrosos, subpaquetes inyectados y tamaño de DEX. Puntuación $\geq 5$ = ENVENENADO. Adaptado de \enquote{hashlib-Jara} por Huacac Soto (2026).
+\item \textit{Nota.} El sistema de puntuación combina permisos peligrosos, subpaquetes inyectados y tamaño de DEX. Puntuación $\geq 5$ = ENVENENADO. Adaptado de \enquote{hashlib-Jara} por Arenas Llamocca et al. (2026).
 \end{tablenotes}
 \end{threeparttable}
 \end{table}
@@ -942,7 +946,7 @@ AndroidManifest.xml con Androguard para contar permisos peligrosos; (c)
 detección de subpaquetes con nombres aleatorios de 5 caracteres
 generados por MsfVenom; (d) comparación del tamaño del DEX. Cada
 indicador suma puntos; si el total supera 5, el APK se clasifica como
-ENVENENADO (Huacac Soto, 2026).
+ENVENENADO (Arenas Llamocca et al., 2026).
 
 \subsection{Resultados Obtenidos}
 
@@ -1113,7 +1117,8 @@ Fortra. (2024). \textit{impacket: A collection of Python classes for working
   \url{https://github.com/fortra/impacket}
 
 \bibitem{huacac2026}
-Huacac Soto, A. (2026). \textit{hashlib-Jara: Detección de APKs envenenados
+Arenas Llamocca, K. A., Condori Nayhua, E., Cruz Acevedo, J. A., Huacac Soto, A. y
+  Marocho Huaman, A. (2026). \textit{hashlib-Jara: Detección de APKs envenenados
   con Python} [Repositorio de código fuente]. GitHub.
   \url{https://github.com/AlvaroHuacacSoto/hashlib-Jara}
 
