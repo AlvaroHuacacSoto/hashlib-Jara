@@ -71,7 +71,9 @@
 
 % --- Hipervínculos ---
 \usepackage[colorlinks=false,hidelinks]{hyperref}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % allow URL line breaks anywhere
 \usepackage{url}
+\urlstyle{same}
 
 % --- Paquetes adicionales ---
 \usepackage{amsmath,amssymb}
@@ -435,10 +437,10 @@ print(hashlib.algorithms_available)
 \subsubsection{Funciones Principales}
 
 \begin{table}[H]
-\centering
+\centering\footnotesize
 \begin{threeparttable}
 \caption{\textit{Métodos principales de la librería hashlib}}
-\begin{tabular}{p{3.5cm}p{5cm}p{4.5cm}}
+\begin{tabular}{p{3cm}p{5.5cm}p{4cm}}
 \toprule
 \textbf{Función} & \textbf{Propósito} & \textbf{Ejemplo} \\
 \midrule
@@ -531,14 +533,14 @@ muestra en la Tabla~\ref{tab:hashes_apk}.
 \begin{threeparttable}
 \caption{\textit{Comparación de hashes entre APK original y envenenado}}
 \label{tab:hashes_apk}
-\begin{tabular}{p{2cm}p{5.5cm}p{5.5cm}}
+\begin{tabular}{p{1.8cm}p{5.3cm}p{5.3cm}}
 \toprule
 \textbf{Algoritmo} & \textbf{CairosOriginal.apk} & \textbf{CairosVenom.apk} \\
 \midrule
-MD5 & \texttt{3392a4d54f89fc7fe9c6618ff418bd75} & \texttt{7a35a20a63573b0225c49be3a3f55295} \\
-SHA-1 & \texttt{1e4dc3d80c74e...} & \texttt{cfb3bba3068982c7...} \\
-SHA-256 & \texttt{6752e6831ed26...} & \texttt{fe1452b4900c92...} \\
-SHA-512 & \texttt{201a5bacda494...} & \texttt{3708cf576beda8...} \\
+MD5 & \texttt{3392a4d54f89...} & \texttt{7a35a20a6357...} \\
+SHA-1 & \texttt{1e4dc3d80c74...} & \texttt{cfb3bba30689...} \\
+SHA-256 & \texttt{6752e6831ed2...} & \texttt{fe1452b4900c...} \\
+SHA-512 & \texttt{201a5bacda49...} & \texttt{3708cf576bed...} \\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}
@@ -608,10 +610,10 @@ import yara
 \subsubsection{Funciones Principales}
 
 \begin{table}[H]
-\centering
+\centering\footnotesize
 \begin{threeparttable}
 \caption{\textit{Métodos principales de yara-python}}
-\begin{tabular}{p{3.5cm}p{5cm}p{4.5cm}}
+\begin{tabular}{p{3cm}p{5.5cm}p{4cm}}
 \toprule
 \textbf{Función} & \textbf{Propósito} & \textbf{Ejemplo} \\
 \midrule
@@ -727,7 +729,7 @@ Tabla~\ref{tab:resultados_deteccion}.
 \begin{threeparttable}
 \caption{\textit{Resultados del detector YARA + Androguard sobre los tres APK}}
 \label{tab:resultados_deteccion}
-\begin{tabular}{p{3.5cm}p{3cm}p{3cm}p{3cm}}
+\begin{tabular}{p{3cm}p{3.5cm}p{3.5cm}p{3cm}}
 \toprule
 \textbf{Indicador} & \textbf{CairosOriginal} & \textbf{CairosVenom} & \textbf{payload.apk} \\
 \midrule
@@ -805,10 +807,10 @@ from impacket.krb5 import kerberosv5
 \subsubsection{Funciones Principales}
 
 \begin{table}[H]
-\centering
+\centering\footnotesize
 \begin{threeparttable}
 \caption{\textit{Métodos principales de impacket}}
-\begin{tabular}{p{3.5cm}p{5cm}p{4.5cm}}
+\begin{tabular}{p{3cm}p{5.5cm}p{4cm}}
 \toprule
 \textbf{Módulo} & \textbf{Propósito} & \textbf{Ejemplo} \\
 \midrule
@@ -890,7 +892,7 @@ Actualización constante de protocolos. & Requiere laboratorio con VMs Windows. 
 \section{Cuadro Comparativo de las Librerías}
 
 \begin{table}[H]
-\centering
+\centering\footnotesize
 \begin{threeparttable}
 \caption{\textit{Cuadro comparativo de hashlib, yara-python e impacket}}
 \begin{tabular}{p{2.5cm}p{3.5cm}p{3.5cm}p{3.5cm}}
@@ -1004,9 +1006,9 @@ detección de modificaciones.
 \subsection{Enlaces y Evidencias}
 
 \begin{itemize}
-\item Repositorio GitHub: \url{https://github.com/AlvaroHuacacSoto/hashlib-Jara}
-\item Notebook hashlib: \url{https://colab.research.google.com/drive/1oXyDNrLdfR4-8oltR1WURTp8IMK65TTF}
-\item Notebook yara-python: \url{https://colab.research.google.com/drive/173T7NiHw52sU_ySdK0RQoJzm5KdplAmp}
+\item Repositorio GitHub:\\ \url{https://github.com/AlvaroHuacacSoto/hashlib-Jara}
+\item Notebook hashlib:\\ \url{https://colab.research.google.com/drive/1oXyDNrLdfR4-8oltR1WURTp8IMK65TTF}
+\item Notebook yara-python:\\ \url{https://colab.research.google.com/drive/173T7NiHw52sU_ySdK0RQoJzm5KdplAmp}
 \end{itemize}
 
 % ============================================================
@@ -1059,15 +1061,15 @@ Se desarrollaron dos scripts Python complementarios:
 \centering
 \begin{threeparttable}
 \caption{\textit{Resumen del caso práctico}}
-\begin{tabular}{p{4cm}p{9cm}}
+\begin{tabular}{p{3.5cm}p{9cm}}
 \toprule
 \textbf{Elemento} & \textbf{Descripción} \\
 \midrule
 Contexto & Desarrollador descubre APK alterado en distribución no autorizada. \\
-Problema & 24 permisos vs 2 originales; hashes no coinciden; payload Metasploit. \\
-Archivos & CairosOriginal.apk, CairosVenom.apk, payload.apk. \\
+Problema & 24 permisos (14 peligrosos) vs 2 originales; hashes no coinciden; payload Metasploit. \\
+Archivos & \texttt{CairosOriginal.apk}, \texttt{CairosVenom.apk}, \texttt{payload.apk}. \\
 Librerías & hashlib (integridad), yara-python + androguard (detección), impacket (documentación teórica). \\
-Herramienta de ataque & MsfVenom con payload android/meterpreter/reverse\_tcp. \\
+Ataque & MsfVenom (payload android/meterpreter/reverse\_tcp). \\
 Resultado & Original LIMPIO, envenenado ENVENENADO con 14 indicadores. \\
 \bottomrule
 \end{tabular}
